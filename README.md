@@ -1,6 +1,6 @@
 # dotfiles
 
-### Installation
+## Installation
 
 ```
 $ git clone https://github.com/rect1114/dotfiles .dotfiles
