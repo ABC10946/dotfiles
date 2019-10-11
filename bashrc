@@ -124,3 +124,9 @@ if ! shopt -oq posix; then
     . /etc/bash_completion
   fi
 fi
+
+peco-select-history() {
+  $(history | cut -c 8- | peco)
+}
+
+bind -x '"\C-r": peco-select-history'
