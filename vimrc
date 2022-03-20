@@ -47,3 +47,8 @@ for tool in s:opam_packages
   endif
 endfor
 " ## end of OPAM user-setup addition for vim / base ## keep this line
+
+set mouse=a
+set clipboard&
+set clipboard^=unnamedplus
+set backspace=indent,eol,start
