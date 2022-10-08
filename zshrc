@@ -48,3 +48,11 @@ alias egrep='egrep --color=auto'
 alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
+
+# wsl configuration TODO: write if statement
+export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+eval $(ssh-agent)
+alias vim=nvim
+export PATH=$HOME/.local/bin:$PATH
+
+source "$HOME/.cargo/env"
