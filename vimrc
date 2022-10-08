@@ -6,10 +6,9 @@ nnoremap <silent><C-t>   :tabe<CR>
 nnoremap <silent><C-w>   :tabn<CR>
 nnoremap <silent><Tab>   :wincmd w<CR>
 nnoremap <silent><C-e>   :NERDTreeToggle<CR>
-set number
 
 " plugin section
-call plug#begin('~/.vim/plugged')
+call plug#begin('$HOME/.config/nvim/plugged')
 Plug 'vim-airline/vim-airline'
 Plug 'scrooloose/nerdtree'
 Plug 'Shougo/ddc.vim'
@@ -126,3 +125,5 @@ call ddc#enable()
 " \   'lsp_ok':       'middle',
 " \ },
 " \ }
+"
+set number
