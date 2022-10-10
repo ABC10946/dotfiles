@@ -22,6 +22,7 @@ Plug 'Shougo/ddc-sorter_rank'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/vim-lsp'
 " Plug 'halkn/lightline-lsp'
+Plug 'airblade/vim-gitgutter'
 call plug#end()
 
 set visualbell t_vb=
@@ -127,3 +128,4 @@ call ddc#enable()
 " \ }
 "
 set number
+set updatetime=100
