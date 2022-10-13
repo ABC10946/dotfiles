@@ -56,3 +56,6 @@ alias vim=nvim
 export PATH=$HOME/.local/bin:$PATH
 
 source "$HOME/.cargo/env"
+
+export DENO_INSTALL=$HOME/.deno
+export PATH=$DENO_INSTALL/bin:$PATH
