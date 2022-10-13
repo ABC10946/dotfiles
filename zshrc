@@ -49,13 +49,20 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-# wsl configuration TODO: write if statement
-export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+if [ $(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/ip') ]; then
+  # configuration for WSL (VcxSrv)
+  export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+fi
+
 eval $(ssh-agent)
 alias vim=nvim
 export PATH=$HOME/.local/bin:$PATH
 
-source "$HOME/.cargo/env"
+if [ -d "$HOME/.cargo" ]; then
+  source "$HOME/.cargo/env"
+fi
 
-export DENO_INSTALL=$HOME/.deno
-export PATH=$DENO_INSTALL/bin:$PATH
+if [ -d "$HOME/.deno" ]; then
+  export DENO_INSTALL=$HOME/.deno
+  export PATH=$DENO_INSTALL/bin:$PATH
+fi
