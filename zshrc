@@ -76,3 +76,7 @@ if [[ -z "$TMUX" ]] ;then
         tmux attach-session -t "$ID" # if available attach to it
     fi
 fi
+
+if [ -d "/usr/local/go/bin" ]; then
+	export PATH=$PATH:/usr/local/go/bin
+fi
