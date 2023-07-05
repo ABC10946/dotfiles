@@ -49,10 +49,10 @@ alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
-if [ $(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/ip') ]; then
-  # configuration for WSL (VcxSrv)
-  export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
-fi
+# if [ $(uname -r | sed -n 's/.*\( *Microsoft *\).*/\1/ip') ]; then
+#   # configuration for WSL (VcxSrv)
+#   export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
+# fi
 
 eval $(ssh-agent)
 alias vim=nvim
