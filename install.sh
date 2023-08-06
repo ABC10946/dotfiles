@@ -7,10 +7,13 @@ fi
 curl -fLo "$HOME"/.config/nvim/autoload/plug.vim --create-dirs \
     https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
+sudo apt install peco zsh
+
 ln -sf "$HOME"/.dotfiles/vimrc "$HOME"/.config/nvim/init.vim
 ln -sf "$HOME"/.dotfiles/bashrc "$HOME"/.bashrc
 ln -sf "$HOME"/.dotfiles/zshrc "$HOME"/.zshrc
 ln -sf "$HOME"/.dotfiles/tmux.conf "$HOME"/.tmux.conf
+
 
 command -v deno
 is_deno_installed=$?
