@@ -22,6 +22,7 @@ Plug 'Shougo/ddc-sorter_rank'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/vim-lsp'
 Plug 'airblade/vim-gitgutter'
+Plug 'ojroques/vim-oscyank', {'branch': 'main'}
 call plug#end()
 
 set visualbell t_vb=

@@ -54,7 +54,7 @@ alias l='ls -CF'
 #   export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
 # fi
 
-eval $(ssh-agent)
+# eval $(ssh-agent)
 alias vim=nvim
 export PATH=$HOME/.local/bin:$PATH
 
@@ -77,8 +77,10 @@ if [[ -z "$TMUX" ]] ;then
     fi
 fi
 
+export PATH=$PATH:/opt/metasploit-framework/bin/msfconsole
+
 if [ -d "/usr/local/go/bin" ]; then
-	export PATH=$PATH:/usr/local/go/bin
+    export PATH=$PATH:/usr/local/go/bin
 fi
 
 alias k=kubectl
