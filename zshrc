@@ -32,10 +32,11 @@ zstyle ':vcs_info:git:*' stagedstr "%F{magenta}!"
 zstyle ':vcs_info:git:*' unstagedstr "%F{yellow}+"
 zstyle ':vcs_info:*' formats "%F{cyan}%c%u[%b]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
-precmd () { vcs_info }
+precmd () { vcs_info; kubecontext=$(kubectl config current-context) }
+
 
 NEWLINE=$'\n'
-PROMPT='%F{green}%n@%m:%~%f%F{cyan}$vcs_info_msg_0_%f${NEWLINE}$ '
+PROMPT='%F{green}%n@%m:%~%f%F{cyan}$vcs_info_msg_0_%f[kube:$kubecontext] ${NEWLINE}$ '
 
 alias ls='ls --color=auto'
 #alias dir='dir --color=auto'
@@ -55,11 +56,18 @@ alias l='ls -CF'
 # fi
 
 # eval $(ssh-agent)
+
+
+
 alias vim=nvim
 export PATH=$HOME/.local/bin:$PATH
 
 if [ -d "$HOME/.cargo" ]; then
   source "$HOME/.cargo/env"
+fi
+
+if [ -d "$HOME/go/bin" ]; then
+  export PATH=$PATH:$HOME/go/bin
 fi
 
 if [ -d "$HOME/.deno" ]; then
@@ -83,4 +91,19 @@ if [ -d "/usr/local/go/bin" ]; then
     export PATH=$PATH:/usr/local/go/bin
 fi
 
+export PATH="$PATH:/opt/nvim-linux64/bin"
+
 alias k=kubectl
+
+
+if [ -z "$SSH_AUTH_SOCK" ]; then
+   # Check for a currently running instance of the agent
+   RUNNING_AGENT="`ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]'`"
+   if [ "$RUNNING_AGENT" = "0" ]; then
+        # Launch a new instance of the agent
+        ssh-agent -s &> $HOME/.ssh/ssh-agent
+   fi
+   eval `cat $HOME/.ssh/ssh-agent`
+fi
+
+export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/config-abcke
