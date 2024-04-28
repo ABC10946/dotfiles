@@ -13,6 +13,7 @@ ln -sf "$HOME"/.dotfiles/vimrc "$HOME"/.config/nvim/init.vim
 ln -sf "$HOME"/.dotfiles/bashrc "$HOME"/.bashrc
 ln -sf "$HOME"/.dotfiles/zshrc "$HOME"/.zshrc
 ln -sf "$HOME"/.dotfiles/tmux.conf "$HOME"/.tmux.conf
+ln -sf "$HOME"/.dotfiles/ansible.cfg "$HOME"/.ansible.cfg
 
 
 command -v deno
