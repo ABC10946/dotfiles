@@ -55,10 +55,6 @@ alias l='ls -CF'
 #   export DISPLAY=$(cat /etc/resolv.conf | grep nameserver | awk '{print $2}'):0
 # fi
 
-# eval $(ssh-agent)
-
-
-
 alias vim=nvim
 export PATH=$HOME/.local/bin:$PATH
 
@@ -95,7 +91,20 @@ export PATH="$PATH:/opt/nvim-linux64/bin"
 
 alias k=kubectl
 
+if [ -d "$HOME/go/bin" ]; then
+    export PATH=$PATH:"$HOME/go/bin"
+fi
 
+if [ -d $HOME/.krew ]; then
+    export PATH=$PATH:"$HOME/.krew/bin"
+fi
+
+[[ /home/abc/.local/bin/kubectl ]] && source <(kubectl completion zsh)
+
+
+# attach ssh-agent PID if it exists
+# else then new ssh-agent session
+#
 if [ -z "$SSH_AUTH_SOCK" ]; then
    # Check for a currently running instance of the agent
    RUNNING_AGENT="`ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]'`"
@@ -107,3 +116,6 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
 fi
 
 export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/config-abcke
+eval "$(~/.rbenv/bin/rbenv init - zsh)"
+
+export PATH=$PATH:$HOME/.local/share/gem/ruby/3.3.0/bin
