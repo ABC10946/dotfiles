@@ -32,11 +32,16 @@ zstyle ':vcs_info:git:*' stagedstr "%F{magenta}!"
 zstyle ':vcs_info:git:*' unstagedstr "%F{yellow}+"
 zstyle ':vcs_info:*' formats "%F{cyan}%c%u[%b]%f"
 zstyle ':vcs_info:*' actionformats '[%b|%a]'
-precmd () { vcs_info; kubecontext=$(kubectl config current-context) }
+if [ -e /usr/local/bin/kubectl ]; then
+    precmd () { vcs_info; kubecontext=$(kubectl config current-context) }
+    PROMPT='%F{green}%n@%m:%~%f%F{cyan}$vcs_info_msg_0_%f[kube:$kubecontext] ${NEWLINE}$ '
+else
+    precmd () { vcs_info; }
+    PROMPT='%F{green}%n@%m:%~%f%F{cyan}$vcs_info_msg_0_%f ${NEWLINE}$ '
+fi
 
 
 NEWLINE=$'\n'
-PROMPT='%F{green}%n@%m:%~%f%F{cyan}$vcs_info_msg_0_%f[kube:$kubecontext] ${NEWLINE}$ '
 
 alias ls='ls --color=auto'
 #alias dir='dir --color=auto'
@@ -99,23 +104,24 @@ if [ -d $HOME/.krew ]; then
     export PATH=$PATH:"$HOME/.krew/bin"
 fi
 
-[[ /home/abc/.local/bin/kubectl ]] && source <(kubectl completion zsh)
-
 
 # attach ssh-agent PID if it exists
 # else then new ssh-agent session
 #
 if [ -z "$SSH_AUTH_SOCK" ]; then
-   # Check for a currently running instance of the agent
-   RUNNING_AGENT="`ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]'`"
-   if [ "$RUNNING_AGENT" = "0" ]; then
+    # Check for a currently running instance of the agent
+    RUNNING_AGENT="`ps -ax | grep 'ssh-agent -s' | grep -v grep | wc -l | tr -d '[:space:]'`"
+    if [ "$RUNNING_AGENT" = "0" ]; then
         # Launch a new instance of the agent
         ssh-agent -s &> $HOME/.ssh/ssh-agent
-   fi
-   eval `cat $HOME/.ssh/ssh-agent`
+    fi
+    eval `cat $HOME/.ssh/ssh-agent`
 fi
 
 export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/config-abcke
-eval "$(~/.rbenv/bin/rbenv init - zsh)"
 
-export PATH=$PATH:$HOME/.local/share/gem/ruby/3.3.0/bin
+export PATH="${KREW_ROOT:-$HOME/.krew}/bin:$PATH"
+
+if [ -e /usr/local/bin/kubectl ]; then
+    [[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
+fi
