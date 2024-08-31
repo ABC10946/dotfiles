@@ -1,5 +1,18 @@
+function npeco() {
+  previousTERM=$TERM
+  export TERM=xterm
+
+  peco_flags="$@"
+
+  peco $peco_flags
+
+  export TERM=$previousTERM
+}
+
+alias peco=npeco
+
 function peco-select-history() {
-  BUFFER=$(\history -n -r 1 | peco --query "$LBUFFER")
+  BUFFER=$(\history -n -r 1 | peco)
   CURSOR=$#BUFFER
   zle clear-screen
 }
@@ -116,6 +129,6 @@ if [ -z "$SSH_AUTH_SOCK" ]; then
 fi
 
 export KUBECONFIG=$HOME/.kube/config:$HOME/.kube/config-abcke
-eval "$(~/.rbenv/bin/rbenv init - zsh)"
+# eval "$(~/.rbenv/bin/rbenv init - zsh)"
 
 export PATH=$PATH:$HOME/.local/share/gem/ruby/3.3.0/bin
